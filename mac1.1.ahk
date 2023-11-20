@@ -16,9 +16,54 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ; #InstallKeybdHook
 ; KeyHistory
 
+
+; CTRL+C for quitting command line
+; !c::Send, ^c
+!c::
+    Suspend, On
+    Send, ^c
+    Suspend, Off
+return
+
+; Settings dialog
+^,::Send, !^s
+
+; Clipboard manager
+^#v::Send, #v
+
+;Clear entire word (Alt+Backspace for mac)
+#Backspace::Send, ^{BackSpace}
+
+; ALT+Enter for INtellij
+#Enter::Send, !{Enter}
+
+#Up::return ;This will disable the effect of Win + ->
+#Down::return ;This will disable the effect of Win + <-
+^#Up::return ;This will disable the effect of Win + ->
+^#Down::return ;This will disable the effect of Win + <-
+
+;alt-shift-u
++^#Up::
+    Suspend, On
+    Send, !8
+    Suspend, Off
+return
+;alt-shift-i
++^#Down::
+    Suspend, On
+    Send, !9
+    Suspend, Off
+return
+
+
 ; App and tab switching
 Ctrl & Tab::AltTab
-!Tab::Send ^{Tab}
+;!Tab::Send ^{Tab}
+!Tab::
+    Suspend, On
+    Send, ^{Tab}
+    Suspend, Off
+return
 
 ; Quit the active app
 ^q::Send, !{f4}
